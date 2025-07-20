@@ -30,7 +30,8 @@ input_t** input(){
 		result[i] = new input_t[INPUT_NUM];
 	for (int i=0;i<INPUT_LINE;i++){
 		for (int j=0;j<INPUT_NUM;j++){
-			cin >> result[i][j];
+			//cin >> result[i][j];
+			getline(cin,result[i][j]);
 		}
 	}
 	return result;
@@ -67,7 +68,7 @@ input_t** input(int n){
 
 //template <typename T>
 int loop_t(string type){
-	int r = 0;
+	int r = type[0] != ' ' ? 1 : 0;
 	for(int i=0;i<type.length()-1;i++){
 		r += (type[i] == ' ' && isalpha(type[i+1])) ? 1 : 0;
 	}
@@ -96,5 +97,6 @@ T switch_t(T type){
 
 int main() {
 	input_t** in;
-	in = input(1);
+	in = input();
+	loop_t(**in);
 }
