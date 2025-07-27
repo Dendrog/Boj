@@ -1,5 +1,6 @@
 #include<iostream>
 #include<algorithm>
+#include <vector>
 
 #define INPUT_LINE 1
 #define INPUT_NUM 1
@@ -65,22 +66,11 @@ input_t** input(int n){
 }
 
 template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
+T loop_t(T type){
+	for(int i=0;i<INPUT_NUM;i++){
+		type++;
 	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
+	return type;
 }
 
 void delete_arr(input_t** arr){
@@ -107,11 +97,25 @@ string getline_t(){
 	return result;
 }
 
+struct jj{
+	int age;
+	string name;
+
+	jj(int a, string b):age(a),name(b){}
+};
+
 int main() {
+	ios_base :: sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	input_t** in;
-	in = input(1,3);
+	in = input();
 	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	in = input(stoi(a),2);
+	vector <jj> js;
+	for (int i=0;i<stoi(a);i++)
+		js.emplace_back(stoi(in[i][0]),in[i][1]);
+	stable_sort(js.begin(),js.end(),[](jj a, jj b){return a.age < b.age;});
+	for (int i=0;i<stoi(a);i++)
+		[](jj a){output_blank(a.age);output_ln(a.name);}(js[i]);
 }

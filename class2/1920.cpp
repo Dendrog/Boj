@@ -1,5 +1,7 @@
 #include<iostream>
 #include<algorithm>
+#include <vector>
+#include<set>
 
 #define INPUT_LINE 1
 #define INPUT_NUM 1
@@ -7,8 +9,10 @@
 
 using namespace std;
 
-typedef string input_t;
+typedef int input_t;
 typedef int output_t;
+
+std::set<int> s;
 
 template <typename T>
 void output(T result){
@@ -22,7 +26,7 @@ void output_blank(T result){
 
 template <typename T>
 void output_ln(T result){
-	cout << result << endl;
+	cout << result << "\n";
 }
 input_t** input(){
 	input_t** result = new input_t*[INPUT_LINE];
@@ -65,22 +69,11 @@ input_t** input(int n){
 }
 
 template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
+T loop_t(T type){
+	for(int i=0;i<INPUT_NUM;i++){
+		type++;
 	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
+	return type;
 }
 
 void delete_arr(input_t** arr){
@@ -108,10 +101,22 @@ string getline_t(){
 }
 
 int main() {
+	ios_base :: sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	input_t** in;
-	in = input(1,3);
+	in = input();
 	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	in = input(1,a);
+	for (int i=0;i<a;i++)
+		s.insert(in[0][i]);
+	in = input();
+	input_t b = in[0][0];
+	in = input(1,b);
+	for (int i=0;i<b;i++){
+		if (s.find(in[0][i]) != s.end())
+			output_ln(1);
+		else
+			output_ln(0);
+	}
 }

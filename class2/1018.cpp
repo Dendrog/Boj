@@ -1,5 +1,6 @@
 #include<iostream>
 #include<algorithm>
+#include <vector>
 
 #define INPUT_LINE 1
 #define INPUT_NUM 1
@@ -22,7 +23,7 @@ void output_blank(T result){
 
 template <typename T>
 void output_ln(T result){
-	cout << result << endl;
+	cout << result << "\n";
 }
 input_t** input(){
 	input_t** result = new input_t*[INPUT_LINE];
@@ -64,24 +65,7 @@ input_t** input(int n){
 	return result;
 }
 
-template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
-	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
-}
+
 
 void delete_arr(input_t** arr){
 	for (int i=0;i<INPUT_LINE;i++)
@@ -107,11 +91,57 @@ string getline_t(){
 	return result;
 }
 
+int w(string *chess, int x, int y){
+	int count = 0;
+	char t = 'B';
+	for (int i = x;i<x+8;i++){
+		t = (t == 'W') ? 'B' : 'W';
+		for (int k = y;k<y+8;k++){
+			if (chess[i][k] != t)
+				count++;
+			t = (t == 'W') ? 'B' : 'W';
+		}
+	}
+	return count;
+}
+
+int b(string *chess, int x, int y){
+	int count = 0;
+	char t = 'W';
+	for (int i = x;i<x+8;i++){
+		t = (t == 'W') ? 'B' : 'W';
+		for (int k = y;k<y+8;k++){
+			if (chess[i][k] != t)
+				count++;
+			t = (t == 'W') ? 'B' : 'W';
+		}
+	}
+	return count;
+}
+
+template <typename T>
+T loop_t(T* type, int a){
+	int mins = 9999999;
+	int ww;
+	int bb;
+	for(int i=0;i<=a-8;i++){
+		for (int k=0;k<=type[i].length() - 8;k++){
+			ww = w(type,i,k);
+			bb = b(type,i,k);
+			mins = min({ww,bb,mins});
+		}
+	}
+	output(mins);
+	return "";
+}
+
 int main() {
+	ios_base :: sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	input_t** in;
-	in = input(1,3);
+	in = input(1,2);
 	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	in = input(1,stoi(a));
+	loop_t(*in,stoi(a));
 }

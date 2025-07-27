@@ -1,13 +1,13 @@
 #include<iostream>
 #include<algorithm>
-
+#include<ctime>
 #define INPUT_LINE 1
 #define INPUT_NUM 1
 #define MAX_SIZE 1000
 
 using namespace std;
 
-typedef string input_t;
+typedef int input_t;
 typedef int output_t;
 
 template <typename T>
@@ -22,7 +22,10 @@ void output_blank(T result){
 
 template <typename T>
 void output_ln(T result){
-	cout << result << endl;
+	ios_base :: sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	cout << result << "\n";
 }
 input_t** input(){
 	input_t** result = new input_t*[INPUT_LINE];
@@ -65,22 +68,11 @@ input_t** input(int n){
 }
 
 template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
+T loop_t(T type){
+	for(int i=0;i<INPUT_NUM;i++){
+		type++;
 	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
+	return type;
 }
 
 void delete_arr(input_t** arr){
@@ -108,10 +100,26 @@ string getline_t(){
 }
 
 int main() {
-	input_t** in;
-	in = input(1,3);
-	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	//time_t start, finish;
+	//start = time(NULL);
+	int *ne = new int[1000001] {0,};
+	int *po = new int[1000001] {0,};
+	int n;
+	int tmp;
+	scanf("%d",&n);
+	for (int i = 0;i<n;i++){
+		scanf("%d",&tmp);
+		if (tmp < 0)
+			ne[-1 * tmp] = 1;
+		else
+			po[tmp] = 1;
+	}
+	for (int i = -1000000;i <= 1000000;i++){
+		if (i < 0 && ne[i*-1])
+			output_ln(i);
+		else if (i>=0 && po[i])
+			output_ln(i);
+	}
+	//finish = time(NULL);
+
 }

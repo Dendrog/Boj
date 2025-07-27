@@ -1,5 +1,6 @@
 #include<iostream>
 #include<algorithm>
+#include<vector>
 
 #define INPUT_LINE 1
 #define INPUT_NUM 1
@@ -7,8 +8,16 @@
 
 using namespace std;
 
-typedef string input_t;
+typedef int input_t;
 typedef int output_t;
+
+struct sz{
+	int x;
+	int y;
+	int s;
+	int c;
+	sz(int x, int y,int c):x(x),y(y),s(0),c(c){}
+};
 
 template <typename T>
 void output(T result){
@@ -65,22 +74,16 @@ input_t** input(int n){
 }
 
 template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
+T loop_t(T type){
+	for(int i=0;i<type.size();i++){
+		int r = 1;
+		for (int k = 0;k<type.size();k++)
+		{
+			r += type[i].x < type[k].x && type[i].y < type[k].y ? 1:0 ;
+		}
+		output_blank(r);
 	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
+	return type;
 }
 
 void delete_arr(input_t** arr){
@@ -107,11 +110,41 @@ string getline_t(){
 	return result;
 }
 
+
+
+bool compare_x(sz a, sz b){
+	return a.x < b.x;
+}
+
+bool compare_y(sz a, sz b){
+	return a.y < b.y;
+}
+
 int main() {
+	ios_base :: sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	input_t** in;
-	in = input(1,3);
+	in = input();
 	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	in = input(2);
+	vector <sz> szs;
+	for (int i=0;i<a;i++)
+		szs.emplace_back(in[i][0],in[i][1],i);
+	loop_t(szs);
+	
+	/*stable_sort(szs.begin(),szs.end(),[](sz a, sz b){return a.x > b.x;});
+	stable_sort(szs.begin(),szs.end(),[](sz a, sz b){return a.y > b.y;});
+	int k = 1;
+	int t=0;
+	szs[0].s = k;
+	for (int i=1;i<szs.size();i++){
+		if (szs[i].x < szs[i-1].x && szs[i].y < szs[i-1].y)
+			k = i+1;
+		szs[i].s = k;
+	}
+	sort(szs.begin(),szs.end(),[](sz a, sz b){return a.c < b.c;});
+	for(int i=0;i<szs.size();i++)
+		output_blank(szs[i].s);
+		//[](sz a){output_blank(a.x);output_ln(a.y);}(szs[i]);*/
 }

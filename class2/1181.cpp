@@ -65,22 +65,11 @@ input_t** input(int n){
 }
 
 template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
+T loop_t(T type){
+	for(int i=0;i<INPUT_NUM;i++){
+		type++;
 	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
+	return type;
 }
 
 void delete_arr(input_t** arr){
@@ -107,11 +96,19 @@ string getline_t(){
 	return result;
 }
 
+bool compare(string a, string b){
+	return a.length() < b.length();
+}
+
 int main() {
 	input_t** in;
-	in = input(1,3);
+	in = input(1,1);
 	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	in = input(1,stoi(a));
+	sort(in[0],in[0]+stoi(a));
+	stable_sort(in[0],in[0]+stoi(a),compare);
+	output_ln(in[0][0]);
+	for (int i =1;i<stoi(a);i++)
+		if (in[0][i-1] != in[0][i])
+			output_ln(in[0][i]);
 }

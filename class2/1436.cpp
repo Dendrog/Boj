@@ -7,7 +7,7 @@
 
 using namespace std;
 
-typedef string input_t;
+typedef int input_t;
 typedef int output_t;
 
 template <typename T>
@@ -65,22 +65,18 @@ input_t** input(int n){
 }
 
 template <typename T>
-T loop_t(T* type){
-	int k = 0;
-	for(int i=0;i<3;i++){
-		if(isdigit(type[i][0]))
-			k = stoi(type[i]);
-		k++;
+T loop_t(T type){
+	int re = 0;
+	for(unsigned long long i=666;;i++){
+		//string st = to_string(i);
+		if (to_string(i).find("666") != string::npos)
+			re++;
+		if (re == type){
+			output(i);
+			return 1;
+		}
 	}
-	if (k % 3 == 0 && k % 5 == 0)
-		output("FizzBuzz");
-	else if (k % 3 == 0 && k % 5 != 0)
-		output("Fizz");
-	else if (k % 3 != 0 && k % 5 == 0)
-		output("Buzz");
-	else
-		output(k);
-	return "NULL";
+	return type;
 }
 
 void delete_arr(input_t** arr){
@@ -109,9 +105,7 @@ string getline_t(){
 
 int main() {
 	input_t** in;
-	in = input(1,3);
+	in = input();
 	input_t a = in[0][0];
-	//output(in[0][1]);
-	//output(in[0][2]);
-	loop_t(in[0]);
+	loop_t(a);
 }
