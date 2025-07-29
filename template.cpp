@@ -1,5 +1,6 @@
 #include<iostream>
 #include<algorithm>
+#include <vector>
 
 #define INPUT_LINE 1
 #define INPUT_NUM 1
@@ -22,7 +23,7 @@ void output_blank(T result){
 
 template <typename T>
 void output_ln(T result){
-	cout << result << endl;
+	cout << result << "\n";
 }
 input_t** input(){
 	input_t** result = new input_t*[INPUT_LINE];
@@ -97,6 +98,9 @@ string getline_t(){
 }
 
 int main() {
+	ios_base :: sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 	input_t** in;
 	in = input();
 	input_t a = in[0][0];
