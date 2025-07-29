@@ -115,8 +115,8 @@ int main() {
 	vector<xy> xys;
 	for (int i=0;i<a;i++)
 		xys.emplace_back(in[i][0],in[i][1]);
-	stable_sort(xys.begin(),xys.end(),[](xy a, xy b){return a.y < b.y;});
 	stable_sort(xys.begin(),xys.end(),[](xy a, xy b){return a.x < b.x;});
+	stable_sort(xys.begin(),xys.end(),[](xy a, xy b){return a.y < b.y;});
 	for (int i=0;i<a;i++)
 		[](xy c){output_blank(c.x);output_ln(c.y);}(xys[i]);
 }

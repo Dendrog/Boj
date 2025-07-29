@@ -1,22 +1,23 @@
 #include<iostream>
 #include<cmath>
-#include<vector>
+#include<queue>
 using namespace std;
 int main(){
 	int n;
 	cin >> n;
 	int k = 0;
 	int r=0;
-	for (int i=1;;i++){
-		if (n ==1)
-			break;
+	queue<int> v;
+	for (int i=1;i<=n;i++){
+		v.push(i);
+	}
+	for (int i=1;v.size()>1;i++){
 		if (i%2)
-			k++;
-		if (i % n == 0){
-			r+=k;
-			n = n - k;
-			k = 0;
+			v.pop();
+		else{
+			v.push(v.front());
+			v.pop();
 		}
 	}
-	cout << r;
+	cout << v.front();
 }
