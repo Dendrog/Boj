@@ -9,19 +9,37 @@ int main(){
     cin >> n;
     int m;
     cin >> m;
-    vector<pair<int,int>> v;
+    int **a = new int*[n];
+    for (int i=0;i<n;i++){
+        a[i] = new int[n]();
+    }
     for (int i=0;i<m;i++){
         int q,p;
         cin >> q >> p;
-        v.push_back({q,p});
+        a[q-1][p-1] = 1;
+        a[p-1][q-1] = 1;
     }
-    sort(v.begin(),v.end());
     stack<int> s;
-    set<int> se;
-    se.insert(1);
-    s.push(1);
+    int *visit = new int[n]();
+    s.push(0);
     for (;s.size();){
-        int p = s.top();
-        auto k = find(v.begin(),v.end(),[p](in))
+        int flag = 1;
+        int i = s.top();
+        visit[i] = 1;
+        for (int k = 0;k < n;k++){
+            if (a[i][k] && !visit[k]){
+                s.push(k);
+                flag = 0;
+                break;
+            }
+        }
+        if (flag)
+            s.pop();
     }
+    int re = 0;
+    for (int i=1;i<n;i++){
+        if (visit[i])
+            re+=1;
+    }
+    cout << re;
 }
