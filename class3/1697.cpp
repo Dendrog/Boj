@@ -3,19 +3,28 @@ using namespace std;
 using graph = vector<vector<int>>;
 graph g;
 int n,m;
-long long counts;
+int tmp;
 vector<int> times(100001);
 void bfs(int start){
-	queue<pair<int,int>> q;
-	q.push({start,1});
+	queue<int> q;
+	q.push(start);
+	times[start] = 1;
 	for(;q.size();){
-		pair<int,int> p = q.front();
+		int p = q.front();
+		if (p == m)
+			return ;
 		//cout << p.first << "\n";
 		q.pop();
-		times[start] = p.second;
-		for (int i=0;i<g[p.first].size();i++){
-			if (!times[g[p.first][i]])
-				q.push({g[p.first][i],p.second});
+		/*if (times[p.first])
+			continue;*/
+		//times[p] = tmp;
+		for (int i=0;i<g[p].size();i++){
+			if (!times[g[p][i]]){
+				q.push(g[p][i]);
+				times[g[p][i]] = times[p]+1;
+				if (g[p][i] == m)
+					return ;
+			}
 		}
 	}
 }
@@ -36,5 +45,5 @@ int main(){
 			g[i].push_back(i*2);
 	}
 	bfs(n);
-	cout << times[m];
+	cout << times[m] -1;
 }
